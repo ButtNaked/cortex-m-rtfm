@@ -77,13 +77,17 @@ pub fn app(app: &App, analysis: &Analysis, extra: &Extra) -> TokenStream2 {
             unsafe extern "C" fn #main() -> ! {
                 let _TODO: () = ();
 
-                #(#assertion_stmts)*
-
-                #(#pre_init_stmts)*
-
-                #call_init
-
-                #(#post_init_stmts)*
+                #[inline(never)]
+                unsafe fn main_helper() {
+                        #(#assertion_stmts)*
+        
+                        #(#pre_init_stmts)*
+        
+                        #call_init
+        
+                        #(#post_init_stmts)*
+                }
+                main_helper();
 
                 #call_idle
             }

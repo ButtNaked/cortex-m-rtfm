@@ -88,7 +88,8 @@ pub fn app(app: &App, analysis: &Analysis, extra: &Extra) -> TokenStream2 {
                         #(#post_init_stmts)*
                 }
                 main_helper();
-
+                // enable the interrupts
+                rtic::export::interrupt::enable();
                 #call_idle
             }
         ));

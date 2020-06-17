@@ -154,9 +154,6 @@ pub fn codegen(
             }
         }
     }
-
-    // enable the interrupts -- this completes the `init`-ialization phase
-    stmts.push(quote!(rtic::export::interrupt::enable();));
-
+    
     (const_app, stmts)
 }
